@@ -1,31 +1,46 @@
 import { StyledList, ListItem, TextContainer, StyledDeleteButton } from './Styles.jsx';
 
 function List({ list, setList }) {
-  const handleToggleComplete = (index) => {
-    setList((prevList) =>
-      prevList.map((item, idx) =>
-        idx === index ? { ...item, isCompleted: !item.isCompleted } : item
-      )
-    );
+  const API_URL = "http://localhost:5000/api/items";
+
+  const handleToggleComplete = async (item) => {
+    try {
+      const response = await fetch(`${API_URL}/${item._id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ isCompleted: !item.isCompleted }),
+      });
+      const updatedItem = await response.json();
+      setList((prevList) =>
+        prevList.map((itm) => (itm._id === updatedItem._id ? updatedItem : itm))
+      );
+    } catch (err) {
+      console.error('Failed to toggle complete status.');
+    }
   };
 
-  const handleDeleteItem = (index) => {
-    setList((prevList) => prevList.filter((_, idx) => idx !== index));
+  const handleDeleteItem = async (itemId) => {
+    try {
+      await fetch(`${API_URL}/${itemId}`, { method: 'DELETE' });
+      setList((prevList) => prevList.filter((item) => item._id !== itemId));
+    } catch (err) {
+      console.error('Failed to delete item.');
+    }
   };
 
   return (
     <StyledList>
-      {list.map((item, index) => (
+      {list.map((item) => (
         <ListItem
-          key={index}
+          key={item._id}
           isCompleted={item.isCompleted}
-          onClick={() => handleToggleComplete(index)}
+          onClick={() => handleToggleComplete(item)}
         >
           <TextContainer>{item.text}</TextContainer>
           <StyledDeleteButton
-            onClick={(e) => { 
+            onClick={(e) => {
               e.stopPropagation();
-              handleDeleteItem(index); 
+              handleDeleteItem(item._id);
             }}
           />
         </ListItem>

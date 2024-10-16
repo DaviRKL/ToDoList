@@ -1,13 +1,16 @@
-import { Router } from "express";
+import  express from "express";
 import { createItem, getItems, updateItem, deleteItem, deleteAllItems } from "../controllers/item.controller.js";
-Router.post("/items", createItem)
 
-Router.get("/items", getItems)
+const router = express.Router();
 
-Router.put("/items:id", updateItem)
+router.post("/items", createItem)
 
-Router.delete("/items:id", deleteItem)
+router.get("/items", getItems)
 
-Router.delete("/items", deleteAllItems)
+router.put("/items:id", updateItem)
 
-export default Router;
+router.delete("/items:id", deleteItem)
+
+router.delete("/items", deleteAllItems)
+
+export default router;

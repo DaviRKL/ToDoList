@@ -1,16 +1,13 @@
-import reactLogo from '../../assets/react.svg'
-import viteLogo from '/vite.svg'
-import './Styles.css'
+import './Styles.css';
 
-function DeleteAllButton({ setList,}) {
-
+function DeleteAllButton({ deleteAllItems }) {
   return (
     <>
       <ul>
-      <button onClick={(e) => {setList([])}}> Deletar tudo</button>
+        <button onClick={deleteAllItems}>Deletar tudo</button>
       </ul>
     </>
-  )
+  );
 }
 
 export default DeleteAllButton;

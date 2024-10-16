@@ -1,4 +1,4 @@
-import Item from "../models/task.model";
+import Item from '../models/task.model.js'
 
 //Create a new Item
 export const createItem = async (req, res) => {

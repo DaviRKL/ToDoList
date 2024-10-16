@@ -1,7 +1,7 @@
-import {ErrorMessage, InputContainer, StyledButton, StyledTextField} from './Styles.jsx'
+import {ErrorMessage, InputContainer, StyledButton, StyledTextField} from './Styles.jsx';
 import { useState } from 'react';
 
-function Input({ text, setText, setList }) {
+function Input({ text, setText, addItem }) {
   const [error, setError] = useState("");
 
   const handleAddItem = () => {
@@ -9,8 +9,7 @@ function Input({ text, setText, setList }) {
       setError("A tarefa não pode estar vazia.");
       return;
     }
-    setList((prevList) => [...prevList, { text: text, isCompleted: false }]);
-    setText("");
+    addItem(text);
     setError(""); 
   };
 
@@ -30,7 +29,6 @@ function Input({ text, setText, setList }) {
           Criar tarefa
         </StyledButton>
       </InputContainer>
-      
     </>
   );
 }
