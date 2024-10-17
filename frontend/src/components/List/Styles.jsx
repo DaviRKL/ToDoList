@@ -7,7 +7,7 @@ export const StyledList = styled(List)`
 `;
 
 export const ListItem = styled(MuiListItem)`
-  background-color: ${(props) => (props.isCompleted ? '#d4edda' : '#f8d7da')};
+  background-color: ${(props) => (props.isCompleted ? '#1976d2' : '#ff0e22')};
   color: #333;
   margin: 5px 0;
   cursor: pointer;
@@ -24,6 +24,7 @@ export const ListItem = styled(MuiListItem)`
 export const TextContainer = styled.div`
   flex-grow: 1;  // Faz o texto ocupar o espaço restante
   padding: 10px;  // Adiciona um pouco de espaçamento ao redor do texto
+  color: white;
 `;
 
 export const DeleteButton = styled(IconButton)`
@@ -36,8 +37,11 @@ export const DeleteButton = styled(IconButton)`
   }
 `;
 
+export const TrashIcon = styled(DeleteIcon)`
+  color: white;
+`
 export const StyledDeleteButton = (props) => (
   <DeleteButton {...props}>
-    <DeleteIcon />
+    <TrashIcon/>
   </DeleteButton>
 );

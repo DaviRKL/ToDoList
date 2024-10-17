@@ -4,6 +4,8 @@ import Title from '../Title/Index'
 import Input from '../Input/Index'
 import List from '../List/Index'
 import DeleteAllButton from '../DeleteAllButton/Index'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [text, setText] = useState("");
@@ -31,7 +33,7 @@ function App() {
     }
   };
 
-  
+
   const addItem = async (itemText) => {
     try {
       const response = await fetch(API_URL, {
@@ -47,8 +49,10 @@ function App() {
       const newItem = await response.json();
       setList((prevList) => [newItem, ...prevList]);
       setText('');
+      toast.success('Tarefa criada com sucesso!');
     } catch (err) {
       setError(err.message);
+      toast.error('Falha na criação da Tarefa!');
     }
   };
 
@@ -61,24 +65,27 @@ function App() {
         throw new Error('Failed to delete all items.');
       }
       setList([]);
+      toast.success('Tarefas deletadas com sucesso!');
     } catch (err) {
       setError(err.message);
+      toast.error('Falha ao deletar tarefas!');
     }
   };
 
   return (
     <>
+      <ToastContainer></ToastContainer>
       <Title />
       <Input text={text} setText={setText} addItem={addItem}></Input>
       <List list={list} setList={setList}></List>
       {
         list.length > 0 ? (
-         <DeleteAllButton setList={setList}/>
+          <DeleteAllButton deleteAllItems={deleteAllItems} />
         ) : (
-          <></>
+          <img src="/TodoIcon.png" alt="Minha Imagem" />
         )
       }
-      
+
     </>
   )
 }

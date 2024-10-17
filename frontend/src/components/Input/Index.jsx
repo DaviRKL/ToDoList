@@ -1,12 +1,14 @@
 import {ErrorMessage, InputContainer, StyledButton, StyledTextField} from './Styles.jsx';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 function Input({ text, setText, addItem }) {
   const [error, setError] = useState("");
 
   const handleAddItem = () => {
     if (text.trim() === "") {
-      setError("A tarefa não pode estar vazia.");
+      
+      toast.error('A tarefa não pode estar vazia.');
       return;
     }
     addItem(text);
